@@ -57,5 +57,17 @@ namespace WebApp.Controllers
 
       return RedirectToAction("Customize");
     }
+
+    [HttpGet]
+    public IActionResult Customize()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Customize(AddressModel address)
+    {
+      return View();
+    }
   }
 }
