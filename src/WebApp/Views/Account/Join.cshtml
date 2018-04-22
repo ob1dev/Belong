@@ -1,0 +1,62 @@
+﻿@model WebApp.Models.AccountModel
+
+@{
+  Layout = "~/Views/Shared/_AccountLayout.cshtml";
+
+  ViewData["Title"] = "Join";
+  ViewData["Header.Title"] = "Join B4G";
+  ViewData["Header.Slogan"] = "The best way to find your new home.";
+
+  ViewData["Step1"] = "current";
+  ViewData["Step1.Icon"] = "glyphicon-user";
+  ViewData["Step1.Label"] = "Step 1:";
+
+  ViewData["Step2.Icon"] = "glyphicon-home";
+  ViewData["Step2.Label"] = "Step 2:";
+
+  ViewData["Step3.Icon"] = "glyphicon-cog";
+  ViewData["Step3.Label"] = "Step 3:";
+}
+
+<form asp-action="Join" method="post" class="form-signin">
+  <h2 class="f2-light">Create your personal account</h2>
+
+  <div asp-validation-summary="All" class="text-danger"></div>
+
+  <div class="form-group">
+    <label asp-for="FirstName" class="control-label"></label>
+    <input asp-for="FirstName" class="form-control" placeholder="Johnny" />
+    <span asp-validation-for="FirstName" class="text-danger"></span>
+  </div>
+
+  <div class="form-group">
+    <label asp-for="LastName" class="control-label"></label>
+    <input asp-for="LastName" class="form-control" placeholder="Appleseed" />
+    <span asp-validation-for="LastName" class="text-danger"></span>
+  </div>
+
+  <div class="form-group">
+    <label asp-for="Email" class="control-label"></label>
+    <input asp-for="Email" class="form-control" placeholder="johnny@appleseed.com" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+  </div>
+
+  <div class="form-group">
+    <label asp-for="Phone" class="control-label"></label>
+    <input asp-for="Phone" class="form-control" placeholder="(415) 870-0040" />
+    <span asp-validation-for="Phone" class="text-danger"></span>
+  </div>
+
+  <p class="tos-info">
+    By clicking "Create an account" below, you agree to our
+    <a asp-area="" asp-controller="Home" asp-action="Terms">terms of service</a> and
+    <a asp-area="" asp-controller="Home" asp-action="Privacy">privacy statement</a>.
+    We'll occasionally send you account related emails.
+  </p>
+
+  <button type="submit" class="btn btn-success">Create an account</button>
+</form>
+
+@section Scripts {
+  @await Html.PartialAsync("_ValidationScriptsPartial")
+}

@@ -15,5 +15,26 @@ namespace WebApp.Controllers
     {
       this.dbContext = context;
     }
+
+    [HttpGet]
+    public IActionResult Join()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Join(AccountModel account)
+    {
+      account.IpAddress = HttpContext.Connection.RemoteIpAddress.GetAddressBytes();
+
+      this.dbContext.Accounts.Add(account);
+      await this.dbContext.SaveChangesAsync();
+
+      TempData.Clear();
+      TempData.Add("Account.Id", account.Id);
+      TempData.Add("Account.FirstName", account.FirstName);
+
+      return RedirectToAction("Address");
+    }
   }
 }
