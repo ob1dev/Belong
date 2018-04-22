@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Net;
 
 namespace WebApp.Models
 {
   public class AccountModel
   {
-    public Guid UserId { get; set; }
+    public Guid Id { get; set; }
 
     [Required, MaxLength(255)]
     public string FirstName { get; set; }
@@ -20,6 +19,7 @@ namespace WebApp.Models
     [Required, Phone]
     public string Phone { get; set; }
 
-    public IPAddress IpAddress { get; set; }
+    [MinLength(4), MaxLength(16)]
+    public byte[] IpAddress { get; set; }
   }
 }
