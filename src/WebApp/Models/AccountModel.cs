@@ -8,11 +8,11 @@ namespace WebApp.Models
     [Key]
     public Guid Id { get; set; }
 
-    [Required, MaxLength(255)]
+    [Required, MaxLength(35)]
     [Display(Name = "First name")]
     public string FirstName { get; set; }
 
-    [Required, MaxLength(255)]
+    [Required, MaxLength(35)]
     [Display(Name = "Last name")]
     public string LastName { get; set; }
 
