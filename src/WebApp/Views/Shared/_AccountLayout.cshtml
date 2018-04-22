@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - WebApp</title>
+
+  <environment include="Development">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+  </environment>
+  <environment exclude="Development">
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+          asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+          asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+  </environment>
+</head>
+<body>
+
+  <partial name="_CookieConsentPartial" />
+
+  <div class="container">
+
+    <div class="setup-header">
+      <h1>@ViewData["Header.Title"]</h1>
+      <p class="lead">@ViewData["Header.Slogan"]<strong>@TempData["Account.FirstName"]</strong></p>
+
+      <!-- Show steps if user is creating an account -->
+      <ol class="steps">
+        <li class="@ViewData["Step1"]">
+          <span class="glyphicon @ViewData["Step1.Icon"]" aria-hidden="true"></span>
+          <strong class="step">@ViewData["Step1.Label"]</strong>
+          Create personal account
+        </li>
+        <li class="@ViewData["Step2"]">
+          <span class="glyphicon @ViewData["Step2.Icon"]" aria-hidden="true"></span>
+          <strong class="step">@ViewData["Step2.Label"]</strong>
+          Enter your address
+        </li>
+        <li class="@ViewData["Step3"]">
+          <span class="glyphicon @ViewData["Step3.Icon"]" aria-hidden="true"></span>
+          <strong class="step">@ViewData["Step3.Label"]</strong>
+          Tailor your experience
+        </li>
+      </ol>
+    </div>
+
+    @RenderBody()
+
+    <hr />
+    <footer>
+      <p>&copy; 2018 - WebApp</p>
+    </footer>
+  </div> <!-- /container -->
+
+  <environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>   
+    <script src="~/js/site.js" asp-append-version="true"></script>
+  </environment>
+  <environment exclude="Development">
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            crossorigin="anonymous"
+            integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+    </script>
+    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+            crossorigin="anonymous"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+    </script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+  </environment>
+
+  @RenderSection("Scripts", required: false)
+</body>
+</html>
