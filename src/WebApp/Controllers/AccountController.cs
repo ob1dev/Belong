@@ -36,5 +36,26 @@ namespace WebApp.Controllers
 
       return RedirectToAction("Address");
     }
+
+    [HttpGet]
+    public IActionResult Address()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Address(AddressModel address)
+    {
+      var id = TempData["Account.Id"];
+      var account = this.dbContext.Accounts.Find(id);
+
+      this.dbContext.Addresses.Add(address);
+      account.Address = address;
+
+      this.dbContext.Attach(account).State = EntityState.Modified;
+      await this.dbContext.SaveChangesAsync();
+
+      return RedirectToAction("Customize");
+    }
   }
 }

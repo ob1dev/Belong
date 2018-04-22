@@ -1,0 +1,59 @@
+﻿@model WebApp.Models.AddressModel
+
+@{
+  Layout = "~/Views/Shared/_AccountLayout.cshtml";
+
+  ViewData["Title"] = "Address";
+  ViewData["Header.Title"] = "Welcome to B4G";
+  ViewData["Header.Slogan"] = "You’ve taken your first step into a larger world, ";
+
+  ViewData["Step1"] = "complete";
+  ViewData["Step1.Icon"] = "glyphicon-ok";
+  ViewData["Step1.Label"] = "Completed";
+
+  ViewData["Step2"] = "current";
+  ViewData["Step2.Icon"] = "glyphicon-home";
+  ViewData["Step2.Label"] = "Step 2:";
+
+  ViewData["Step3.Icon"] = "glyphicon-cog";
+  ViewData["Step3.Label"] = "Step 3:";
+}
+
+<form asp-action="Address" method="post" class="form-signin">
+  <h2 class="f2-light">Enter your next home address</h2>
+
+  <div asp-validation-summary="All" class="text-danger"></div>
+
+  <div class="form-group">
+    <label class="control-label">Location</label>
+    <input id="location" type="text" class="form-control">
+  </div>
+
+  <div class="sr-only">
+    <div class="form-group">
+      <input asp-for="StreetNumber" id="street-number" class="form-control" hidden />
+    </div>
+    <div class="form-group">
+      <input asp-for="StreetName" id="street-name" class="form-control" hidden />
+    </div>
+    <div class="form-group">
+      <input asp-for="City" id="city" class="form-control" hidden />
+    </div>
+    <div class="form-group">
+      <input asp-for="State" id="state" class="form-control" hidden />
+    </div>
+    <div class="form-group">
+      <input asp-for="PostalCode" id="postal-code" class="form-control" hidden />
+    </div>
+    <div class="form-group">
+      <input asp-for="Country" id="country" class="form-control" hidden />
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success">Continue</button>
+</form>
+
+@section Scripts {
+  @await Html.PartialAsync("_ValidationScriptsPartial")
+  @await Html.PartialAsync("_GoogleApiScriptsPartial")
+}

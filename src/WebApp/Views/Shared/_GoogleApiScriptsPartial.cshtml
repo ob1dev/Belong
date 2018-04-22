@@ -1,0 +1,8 @@
+﻿<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8N4r3G4hvuc3ob9h8MWVGn7oLq2fcWcQ&libraries=places&callback=initializeAutocomplete"
+        async defer></script>
+<environment include="Development">
+  <script src="~/js/locationAutocomplete.js" asp-append-version="true"></script>
+</environment>
+<environment exclude="Development">
+  <script src="~/js/locationAutocomplete.min.js" asp-append-version="true"></script>
+</environment>
