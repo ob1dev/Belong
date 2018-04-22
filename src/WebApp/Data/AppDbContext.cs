@@ -7,6 +7,8 @@ namespace WebApp.Data
   {
     public DbSet<AccountModel> Accounts { get; set; }
 
+    public DbSet<AddressModel> Addresses { get; set; }
+
     public AppDbContext(DbContextOptions options) : base(options)
     {
     }

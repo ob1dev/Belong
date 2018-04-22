@@ -21,5 +21,9 @@ namespace WebApp.Models
 
     [MinLength(4), MaxLength(16)]
     public byte[] IpAddress { get; set; }
+
+    public Guid AddressId { get; set; }
+
+    public AddressModel Address { get; set; }
   }
 }
