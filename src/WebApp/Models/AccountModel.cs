@@ -5,6 +5,7 @@ namespace WebApp.Models
 {
   public class AccountModel
   {
+    [Key]
     public Guid Id { get; set; }
 
     [Required, MaxLength(255)]
