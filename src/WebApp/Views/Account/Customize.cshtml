@@ -17,3 +17,26 @@
   ViewData["Step3.Icon"] = "glyphicon-cog";
   ViewData["Step3.Label"] = "Step 3:";
 }
+
+<form asp-action="Customize" method="post" class="form-signin">
+  <h2 class="f2-light">Rent estimate</h2>
+
+  <div asp-validation-summary="All" class="text-danger"></div>
+
+  <div class="form-group">
+    <label class="control-label">Valuation range</label>
+    <div class="valuation-range">
+      Between
+      <span class="label label-success">$ @ViewData["Zestimate.Low"]</span>
+      and
+      <span class="label label-danger">$ @ViewData["Zestimate.High"]</span>
+    </div>
+  </div>
+
+
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>
+
+@section Scripts {
+  @await Html.PartialAsync("_ValidationScriptsPartial")
+}

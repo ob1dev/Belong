@@ -62,8 +62,19 @@ namespace WebApp.Controllers
     }
 
     [HttpGet]
-    public IActionResult Customize()
+    public async Task<IActionResult> Customize()
     {
+      var id = TempData["Account.Id"];
+      var account = this.dbContext.Accounts.Find(id);
+      var address = this.dbContext.Addresses.Find(account.AddressId);
+
+      var zestimate = await this.zillowClient.GetRentZestimate(address);
+
+      ViewData["Zestimate.Low"] = zestimate.ValuationRangeLow;
+      ViewData["Zestimate.High"] = zestimate.ValuationRangeHigh;
+
+      TempData.Keep();
+
       return View();
     }
 
