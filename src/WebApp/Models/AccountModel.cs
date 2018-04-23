@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models
@@ -27,8 +28,6 @@ namespace WebApp.Models
     [MinLength(4), MaxLength(16)]
     public byte[] IpAddress { get; set; }
 
-    public Guid? AddressId { get; set; }
-
-    public AddressModel Address { get; set; }
+    public ICollection<RentEstimateModel> RentEstimates { get; set; }
   }
 }
