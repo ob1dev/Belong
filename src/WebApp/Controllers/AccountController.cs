@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using WebApp.Data;
 using WebApp.Models;
+using WebApp.Services;
 
 namespace WebApp.Controllers
 {
@@ -10,10 +11,12 @@ namespace WebApp.Controllers
   public class AccountController : Controller
   {
     private AppDbContext dbContext;
+    private ZillowClient zillowClient;
 
-    public AccountController(AppDbContext context)
+    public AccountController(AppDbContext context, ZillowClient client)
     {
       this.dbContext = context;
+      this.zillowClient = client;
     }
 
     [HttpGet]
