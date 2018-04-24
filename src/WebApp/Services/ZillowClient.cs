@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using WebApp.Models;
-using WebApp.Services.SearchResults;
+using WebApp.Services.Zillow.SearchResults;
 
 namespace WebApp.Services
 {
@@ -23,13 +23,18 @@ namespace WebApp.Services
       this.logger = logger;
       this.configuration = configuration;
     }
-    
-    public async Task<System.Xml.Linq.XDocument> GetDeepSearchResults(AddressModel address, bool rentzestimate)
+
+    public async Task<DeepSearchResults> GetDeepSearchResults(AddressModel address)
+    {
+      return await this.GetDeepSearchResults(address, true);
+    }
+
+    public async Task<DeepSearchResults> GetDeepSearchResults(AddressModel address, bool includeRentZestimate)
     {
       var streetNumberName = $"{address.StreetNumber}+{address.StreetName}";
       var cityStateZip = $"{address.City},+{address.State},+{address.PostalCode}";
       var url = "webservice/GetDeepSearchResults.htm";
-      var queryStringParam = $"?zws-id={this.configuration["ZillowApi:ZWSID"]}&address={streetNumberName}&citystatezip={cityStateZip}&rentzestimate={rentzestimate}";
+      var queryStringParam = $"?zws-id={this.configuration["ZillowApi:ZWSID"]}&address={streetNumberName}&citystatezip={cityStateZip}&rentzestimate={includeRentZestimate}";
       
       try
       {
@@ -38,29 +43,39 @@ namespace WebApp.Services
 
         var stream = await response.Content.ReadAsStreamAsync();
         var reader = new StreamReader(stream);
-        return await XDocument.LoadAsync(reader, LoadOptions.None, CancellationToken.None);
+        var result = await XDocument.LoadAsync(reader, LoadOptions.None, CancellationToken.None);
 
+        var zestimate = this.GetZestimate(result);
+        var rentZestimate = includeRentZestimate ? this.GetRentZestimate(result) : null;
+
+        return new DeepSearchResults(zestimate, rentZestimate);
       }
       catch (HttpRequestException ex)
       {
         this.logger.LogError($"An error occured connecting to values API {ex.ToString()}");
-        return new XDocument();
+        return new DeepSearchResults();
       }
     }
 
-    public async Task<RentZestimate> GetRentZestimate(AddressModel address)
+    private Zestimate GetZestimate(XDocument searchResult)
     {
-      var searchResults = await this.GetDeepSearchResults(address, true);
+      var amount = searchResult.Descendants("zestimate")
+                               .Select(z => (string)z.Element("amount"))
+                               .FirstOrDefault();
 
-      var valuationRange = searchResults.Descendants("rentzestimate")
-                                        .Select(pv => pv.Element("valuationRange"))
-                                        .FirstOrDefault();
+      return new Zestimate(amount);
+    }
+
+    private RentZestimate GetRentZestimate(XDocument searchResult)
+    {
+      var valuationRange = searchResult.Descendants("rentzestimate")
+                                       .Select(rs => rs.Element("valuationRange"))
+                                       .FirstOrDefault();
 
       var rentZestimate = new RentZestimate();
       if (valuationRange != null)
       {
-        rentZestimate.ValuationRangeLow = valuationRange.Element("low").Value;
-        rentZestimate.ValuationRangeHigh = valuationRange.Element("high").Value;
+        rentZestimate.ValuationRange = new ValuationRange(valuationRange.Element("low").Value, valuationRange.Element("high").Value);
       }
 
       return rentZestimate;
