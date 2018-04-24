@@ -28,6 +28,11 @@ namespace WebApp.Controllers
     [HttpPost]
     public async Task<IActionResult> Join(AccountModel account)
     {
+      if (!ModelState.IsValid)
+      {
+        return View();
+      }
+
       account.IpAddress = HttpContext.Connection.RemoteIpAddress.GetAddressBytes();
 
       this.dbContext.Accounts.Add(account);
@@ -49,25 +54,23 @@ namespace WebApp.Controllers
     [HttpPost]
     public async Task<IActionResult> Address(AddressModel address)
     {
-      var id = TempData["Account.Id"];
-      var account = this.dbContext.Accounts.Find(id);
+      if (!ModelState.IsValid)
+      {
+        return View();
+      }
 
       this.dbContext.Addresses.Add(address);
-      account.Address = address;
-
-      this.dbContext.Attach(account).State = EntityState.Modified;
       await this.dbContext.SaveChangesAsync();
 
-      return RedirectToAction("Customize");
+      TempData.Remove("Address.Id");
+      TempData.Add("Address.Id", address.Id);
+
+      return RedirectToAction("Customize", address);
     }
 
     [HttpGet]
-    public async Task<IActionResult> Customize()
+    public async Task<IActionResult> Customize(AddressModel address)
     {
-      var id = TempData["Account.Id"];
-      var account = this.dbContext.Accounts.Find(id);
-      var address = this.dbContext.Addresses.Find(account.AddressId);
-
       var zestimate = await this.zillowClient.GetRentZestimate(address);
 
       ViewData["Zestimate.Low"] = zestimate.ValuationRangeLow;
