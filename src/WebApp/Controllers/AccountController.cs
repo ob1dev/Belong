@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using WebApp.Data;
@@ -75,10 +74,16 @@ namespace WebApp.Controllers
     [HttpGet]
     public async Task<IActionResult> Customize(AddressModel address)
     {
-      var zestimate = await this.zillowClient.GetRentZestimate(address);
+      var result = await this.zillowClient.GetDeepSearchResults(address);
+      var valuationRange = result.RentZestimate?.ValuationRange;
 
-      ViewData["Zestimate.Low"] = zestimate.ValuationRangeLow;
-      ViewData["Zestimate.High"] = zestimate.ValuationRangeHigh;
+      if (valuationRange == null)
+      {
+        valuationRange = this.rentCalculator.GetRentBasedOnHomePrice(result.Zestimate.Amount);
+      }
+
+      ViewData["Zestimate.Low"] = valuationRange.Low;
+      ViewData["Zestimate.High"] = valuationRange.High;
 
       TempData.Keep();
 
