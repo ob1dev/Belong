@@ -9,6 +9,9 @@ namespace WebApp.Models
     [Key]
     public Guid Id { get; set; }
 
+    [Required, MaxLength(27)]
+    public string GooglePlaceId { get; set; }
+
     [Required, MaxLength(10)]
     public string StreetNumber { get; set; }
 
