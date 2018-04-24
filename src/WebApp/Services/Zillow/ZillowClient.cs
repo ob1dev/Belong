@@ -46,7 +46,7 @@ namespace WebApp.Services.Zillow
         var result = await XDocument.LoadAsync(reader, LoadOptions.None, CancellationToken.None);
 
         var zestimate = this.GetZestimate(result);
-        var rentZestimate = includeRentZestimate ? this.GetRentZestimate(result) : null;
+        var rentZestimate = (zestimate != null && includeRentZestimate) ? this.GetRentZestimate(result) : null;
 
         return new DeepSearchResults(zestimate, rentZestimate);
       }
@@ -63,7 +63,7 @@ namespace WebApp.Services.Zillow
                                .Select(z => (string)z.Element("amount"))
                                .FirstOrDefault();
 
-      return new Zestimate(amount);
+      return (amount != null) ? new Zestimate(amount) : null;
     }
 
     private RentZestimate GetRentZestimate(XDocument searchResult)
