@@ -30,8 +30,8 @@ namespace WebApp.Models
     [ForeignKey("AddressModel")]
     public Guid AddressId { get; set; }
 
-    public AccountModel Account { get; set; }
+    public virtual AccountModel Account { get; set; }
 
-    public AddressModel Address { get; set; }
+    public virtual AddressModel Address { get; set; }
   }
 }

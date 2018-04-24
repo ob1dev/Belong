@@ -27,6 +27,6 @@ namespace WebApp.Models
     [Required, MaxLength(25)]
     public string Country { get; set; }
 
-    public ICollection<RentEstimateModel> RentEstimates { get; set; }
+    public virtual ICollection<RentEstimateModel> RentEstimates { get; set; }
   }
 }

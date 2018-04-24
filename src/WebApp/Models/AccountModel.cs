@@ -28,6 +28,6 @@ namespace WebApp.Models
     [MinLength(4), MaxLength(16)]
     public byte[] IpAddress { get; set; }
 
-    public ICollection<RentEstimateModel> RentEstimates { get; set; }
+    public virtual ICollection<RentEstimateModel> RentEstimates { get; set; }
   }
 }
