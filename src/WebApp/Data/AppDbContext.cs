@@ -22,6 +22,10 @@ namespace WebApp.Data
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+      modelBuilder.Entity<AccountModel>()
+                  .HasIndex(a => a.Email)
+                  .IsUnique();
+
       modelBuilder.Entity<AddressModel>()
                   .HasIndex(a => a.GooglePlaceId)
                   .IsUnique();
