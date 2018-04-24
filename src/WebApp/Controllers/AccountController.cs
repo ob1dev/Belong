@@ -112,6 +112,11 @@ namespace WebApp.Controllers
 
     public IActionResult ThankYou()
     {
+      var accountId = (Guid)TempData["Account.Id"];
+      var account = this.dbContext.Accounts.Find(accountId);
+
+      this.emailClient.SendSignupMessage(account);
+
       return View();
     }
   }
