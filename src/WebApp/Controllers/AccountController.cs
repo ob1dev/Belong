@@ -91,13 +91,14 @@ namespace WebApp.Controllers
       var result = await this.zillowClient.GetDeepSearchResults(address);
       var valuationRange = result.RentZestimate?.ValuationRange;
 
-      if (valuationRange == null && result.Zestimate != null)
-      {
-        valuationRange = this.rentCalculator.GetRentBasedOnHomePrice(result.Zestimate.Amount);
-      }
+      if (result.Zestimate == null)
       {
         valuationRange = ValuationRange.Empty;
         ViewData["Zestimate.Alert"] = "No data has been found for the input address.";
+      }
+      else if (valuationRange == null)
+      {
+        valuationRange = this.rentCalculator.GetRentBasedOnHomePrice(result.Zestimate.Amount);
       }
 
       ViewData["Zestimate.Low"] = valuationRange.Low;
