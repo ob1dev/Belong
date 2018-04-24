@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Data;
 using WebApp.Models;
@@ -66,8 +67,17 @@ namespace WebApp.Controllers
         return View();
       }
 
-      this.dbContext.Addresses.Add(address);
-      await this.dbContext.SaveChangesAsync();
+      var result = this.dbContext.Addresses.Where(w => w.GooglePlaceId.Equals(address.GooglePlaceId));
+
+      if (!result.Any())
+      {
+        this.dbContext.Addresses.Add(address);
+        await this.dbContext.SaveChangesAsync();
+      }
+      else
+      {
+        address = result.First();
+      }
 
       TempData.Remove("Address.Id");
       TempData.Add("Address.Id", address.Id);
