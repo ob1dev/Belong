@@ -6,6 +6,8 @@
 
     public decimal High { get; set; }
 
+    public static ValuationRange Empty => new ValuationRange(decimal.Zero, decimal.Zero);
+
     public ValuationRange(decimal low, decimal high)
     {
       this.Low = low;

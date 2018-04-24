@@ -27,6 +27,13 @@
 
   <div class="form-group">
     <label class="control-label">Valuation range</label>
+    @if (ViewData["Zestimate.Alert"] != null)
+    {
+      <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Warning!</strong> @ViewData["Zestimate.Alert"]
+      </div>
+    }
     <div class="valuation-range">
       Between
       <span class="label label-success">$ @ViewData["Zestimate.Low"]</span>

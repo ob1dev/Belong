@@ -6,6 +6,7 @@ using WebApp.Models;
 using WebApp.Services.Email;
 using WebApp.Services.Zillow;
 using WebApp.Services.Zillow.Helpers;
+using WebApp.Services.Zillow.SearchResults;
 
 namespace WebApp.Controllers
 {
@@ -80,9 +81,13 @@ namespace WebApp.Controllers
       var result = await this.zillowClient.GetDeepSearchResults(address);
       var valuationRange = result.RentZestimate?.ValuationRange;
 
-      if (valuationRange == null)
+      if (valuationRange == null && result.Zestimate != null)
       {
         valuationRange = this.rentCalculator.GetRentBasedOnHomePrice(result.Zestimate.Amount);
+      }
+      {
+        valuationRange = ValuationRange.Empty;
+        ViewData["Zestimate.Alert"] = "No data has been found for the input address.";
       }
 
       ViewData["Zestimate.Low"] = valuationRange.Low;
