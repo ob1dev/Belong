@@ -19,5 +19,12 @@ namespace WebApp.Data
     {
       optionsBuilder.UseLazyLoadingProxies();
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+      modelBuilder.Entity<AddressModel>()
+                  .HasIndex(a => a.GooglePlaceId)
+                  .IsUnique();
+    }
   }
 }
