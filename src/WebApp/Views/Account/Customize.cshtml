@@ -43,10 +43,10 @@
   </div>
 
   <div class="form-group">
-    <label asp-for="ExpectedRent" class="control-label">What is your expected monthly rent?</label>
+    <label asp-for="ExpectedRent" class="control-label"></label>
     <div class="input-group">
       <span class="input-group-addon">$</span>
-      <input asp-for="ExpectedRent" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+      <input asp-for="ExpectedRent" type="text" class="form-control" placeholder="What is your expected monthly rent?" aria-label="Amount (to the nearest dollar)">
     </div>
     <span asp-validation-for="ExpectedRent" class="text-danger"></span>
   </div>
