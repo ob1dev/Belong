@@ -12,11 +12,39 @@
       return;
     }
 
-    document.getElementById('street-number').value = place.address_components[0].long_name;
-    document.getElementById('street-name').value = place.address_components[1].short_name;
-    document.getElementById('city').value = place.address_components[2].long_name;
-    document.getElementById('state').value = place.address_components[4].short_name;
-    document.getElementById('postal-code').value = place.address_components[6].long_name;
-    document.getElementById('country').value = place.address_components[5].long_name;
+    var components = place.address_components;
+
+    for (var i = 0, component; component = components[i]; i++) {
+      // Get the street number.
+      if (component.types[0] === 'street_number') {
+        document.getElementById('street-number').value = component.long_name;
+        continue;
+      }
+      // Get the street name.
+      if (component.types[0] === 'route') {
+        document.getElementById('street-name').value = component.short_name;
+        continue;
+      }
+      // Get the city name.
+      if (component.types[0] === 'locality') {
+        document.getElementById('city').value = component.long_name;
+        continue;
+      }
+      // Get the state name.
+      if (component.types[0] === 'administrative_area_level_1') {
+        document.getElementById('state').value = component.short_name;
+        continue;
+      }
+      // Get the postal code.
+      if (component.types[0] === 'postal_code') {
+        document.getElementById('postal-code').value = component.long_name;
+        continue;
+      }
+      // Get the country name.
+      if (component.types[0] === 'country') {
+        document.getElementById('country').value = component.long_name;
+        continue;
+      }
+    }
   });
 }
