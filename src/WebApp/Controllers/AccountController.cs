@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 using WebApp.Data;
 using WebApp.Models;
@@ -82,8 +83,19 @@ namespace WebApp.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> Customize(AddressModel address)
+    public async Task<IActionResult> Customize(RentEstimateModel rentEstimate)
     {
+      if (!ModelState.IsValid)
+      {
+        return View();
+      }
+
+      rentEstimate.AccountId = (Guid)TempData["Account.Id"];
+      rentEstimate.AddressId = (Guid)TempData["Address.Id"];
+
+      this.dbContext.RentEstimates.Add(rentEstimate);
+      await this.dbContext.SaveChangesAsync();
+
       return View();
     }
   }

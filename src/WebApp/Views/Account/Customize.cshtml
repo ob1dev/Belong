@@ -1,4 +1,6 @@
-﻿@{
+﻿@model WebApp.Models.RentEstimateModel
+
+@{
   Layout = "~/Views/Shared/_AccountLayout.cshtml";
 
   ViewData["Title"] = "Customize";
@@ -31,8 +33,23 @@
       and
       <span class="label label-danger">$ @ViewData["Zestimate.High"]</span>
     </div>
+
+    <div class="form-group">
+      <input asp-for="RentZestimateLow" type="hidden" class="form-control" hidden value="@ViewData["Zestimate.Low"]" />
+    </div>
+    <div class="form-group">
+      <input asp-for="RentZestimateHigh" type="hidden" class="form-control" value="@ViewData["Zestimate.High"]" />
+    </div>
   </div>
 
+  <div class="form-group">
+    <label asp-for="ExpectedRent" class="control-label">What is your expected monthly rent?</label>
+    <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <input asp-for="ExpectedRent" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+    </div>
+    <span asp-validation-for="ExpectedRent" class="text-danger"></span>
+  </div>
 
   <button type="submit" class="btn btn-success">Submit</button>
 </form>
