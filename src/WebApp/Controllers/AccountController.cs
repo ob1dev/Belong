@@ -96,6 +96,11 @@ namespace WebApp.Controllers
       this.dbContext.RentEstimates.Add(rentEstimate);
       await this.dbContext.SaveChangesAsync();
 
+      return RedirectToAction("ThankYou");
+    }
+
+    public IActionResult ThankYou()
+    {
       return View();
     }
   }
