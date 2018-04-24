@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using WebApp.Data;
 using WebApp.Models;
+using WebApp.Services.Email;
 using WebApp.Services.Zillow;
 using WebApp.Services.Zillow.Helpers;
 
@@ -14,12 +15,14 @@ namespace WebApp.Controllers
     private AppDbContext dbContext;
     private ZillowClient zillowClient;
     private RentCalculator rentCalculator;
+    private EmailClient emailClient;
 
-    public AccountController(AppDbContext context, ZillowClient client, RentCalculator rentCalculator)
+    public AccountController(AppDbContext context, ZillowClient client, RentCalculator rentCalculator, EmailClient emailClient)
     {
       this.dbContext = context;
       this.zillowClient = client;
       this.rentCalculator = rentCalculator;
+      this.emailClient = emailClient;
     }
 
     [HttpGet]

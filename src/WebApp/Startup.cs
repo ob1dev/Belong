@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using WebApp.Data;
+using WebApp.Services.Email;
 using WebApp.Services.Zillow;
 using WebApp.Services.Zillow.Helpers;
 
@@ -38,6 +39,8 @@ namespace WebApp
 
       services.AddHttpClient<ZillowClient>(client => client.BaseAddress = new Uri(Configuration["ZillowApi:BaseUrl"]));
       services.AddSingleton<RentCalculator>();
+
+      services.AddHttpClient<EmailClient>(client => client.BaseAddress = new Uri(Configuration["EmailApi:BaseUrl"]));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
