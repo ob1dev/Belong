@@ -12,6 +12,9 @@
       return;
     }
 
+    // Get Google Place ID.
+    document.getElementById('placeId').value = place.place_id;
+
     var components = place.address_components;
 
     for (var i = 0, component; component = components[i]; i++) {
