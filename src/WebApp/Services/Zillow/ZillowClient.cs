@@ -9,7 +9,7 @@ using System.Xml.Linq;
 using WebApp.Models;
 using WebApp.Services.Zillow.SearchResults;
 
-namespace WebApp.Services
+namespace WebApp.Services.Zillow
 {
   public class ZillowClient
   {
