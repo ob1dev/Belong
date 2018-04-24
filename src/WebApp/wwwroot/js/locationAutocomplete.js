@@ -13,7 +13,7 @@
     }
 
     document.getElementById('street-number').value = place.address_components[0].long_name;
-    document.getElementById('street-name').value = place.address_components[1].long_name;
+    document.getElementById('street-name').value = place.address_components[1].short_name;
     document.getElementById('city').value = place.address_components[2].long_name;
     document.getElementById('state').value = place.address_components[4].short_name;
     document.getElementById('postal-code').value = place.address_components[6].long_name;
