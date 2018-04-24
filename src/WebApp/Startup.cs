@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using WebApp.Data;
 using WebApp.Services.Zillow;
+using WebApp.Services.Zillow.Helpers;
 
 namespace WebApp
 {
@@ -36,6 +37,7 @@ namespace WebApp
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
       services.AddHttpClient<ZillowClient>(client => client.BaseAddress = new Uri(Configuration["ZillowApi:BaseUrl"]));
+      services.AddSingleton<RentCalculator>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

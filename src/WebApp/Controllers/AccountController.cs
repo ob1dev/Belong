@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using WebApp.Data;
 using WebApp.Models;
 using WebApp.Services.Zillow;
+using WebApp.Services.Zillow.Helpers;
 
 namespace WebApp.Controllers
 {
@@ -13,11 +14,13 @@ namespace WebApp.Controllers
   {
     private AppDbContext dbContext;
     private ZillowClient zillowClient;
+    private RentCalculator rentCalculator;
 
-    public AccountController(AppDbContext context, ZillowClient client)
+    public AccountController(AppDbContext context, ZillowClient client, RentCalculator rentCalculator)
     {
       this.dbContext = context;
       this.zillowClient = client;
+      this.rentCalculator = rentCalculator;
     }
 
     [HttpGet]
