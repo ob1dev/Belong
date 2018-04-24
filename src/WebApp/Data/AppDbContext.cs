@@ -9,6 +9,8 @@ namespace WebApp.Data
 
     public DbSet<AddressModel> Addresses { get; set; }
 
+    public DbSet<RentEstimateModel> RentEstimates { get; set; }
+
     public AppDbContext(DbContextOptions options) : base(options)
     {
     }
