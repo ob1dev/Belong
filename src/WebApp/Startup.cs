@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using WebApp.Data;
-using WebApp.Services;
+using WebApp.Services.Zillow;
 
 namespace WebApp
 {

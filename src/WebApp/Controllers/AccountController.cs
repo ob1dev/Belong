@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using WebApp.Data;
 using WebApp.Models;
-using WebApp.Services;
+using WebApp.Services.Zillow;
 
 namespace WebApp.Controllers
 {
