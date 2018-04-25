@@ -9,7 +9,7 @@ namespace WebApp.Models
     [Key]
     public Guid Id { get; set; }
 
-    [Required, MaxLength(27)]
+    [Required, MaxLength(60)]
     public string GooglePlaceId { get; set; }
 
     [Required, MaxLength(10)]
