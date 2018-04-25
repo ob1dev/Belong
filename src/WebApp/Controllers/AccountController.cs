@@ -123,6 +123,8 @@ namespace WebApp.Controllers
       this.dbContext.RentEstimates.Add(rentEstimate);
       await this.dbContext.SaveChangesAsync();
 
+      TempData.Keep();
+
       return RedirectToAction("ThankYou");
     }
 
@@ -132,6 +134,8 @@ namespace WebApp.Controllers
       var account = this.dbContext.Accounts.Find(accountId);
 
       this.emailClient.SendSignupMessage(account);
+
+      TempData.Keep();
 
       return View();
     }
