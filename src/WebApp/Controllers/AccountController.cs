@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,13 +15,15 @@ namespace WebApp.Controllers
   [Route("[controller]/[action]")]
   public class AccountController : Controller
   {
+    private ILogger<AccountController> logger;
     private AppDbContext dbContext;
     private ZillowClient zillowClient;
     private RentCalculator rentCalculator;
     private EmailClient emailClient;
 
-    public AccountController(AppDbContext context, ZillowClient client, RentCalculator rentCalculator, EmailClient emailClient)
+    public AccountController(ILogger<AccountController> logger, AppDbContext context, ZillowClient client, RentCalculator rentCalculator, EmailClient emailClient)
     {
+      this.logger = logger;
       this.dbContext = context;
       this.zillowClient = client;
       this.rentCalculator = rentCalculator;
@@ -41,10 +44,16 @@ namespace WebApp.Controllers
         return View();
       }
 
-      account.IpAddress = HttpContext.Connection.RemoteIpAddress.GetAddressBytes();
-
-      this.dbContext.Accounts.Add(account);
-      await this.dbContext.SaveChangesAsync();
+      try
+      {
+        account.IpAddress = HttpContext.Connection.RemoteIpAddress.GetAddressBytes();
+        this.dbContext.Accounts.Add(account);
+        await this.dbContext.SaveChangesAsync();
+      }
+      catch(Exception ex)
+      {
+        this.logger.LogError($"An error occurred while saving entity '{nameof(AccountModel)}': {ex.ToString()}");
+      }
 
       TempData.Clear();
       TempData.Add("Account.Id", account.Id);
@@ -68,11 +77,17 @@ namespace WebApp.Controllers
       }
 
       var result = this.dbContext.Addresses.Where(w => w.GooglePlaceId.Equals(address.GooglePlaceId));
-
       if (!result.Any())
       {
-        this.dbContext.Addresses.Add(address);
-        await this.dbContext.SaveChangesAsync();
+        try
+        {
+          this.dbContext.Addresses.Add(address);
+          await this.dbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+          this.logger.LogError($"An error occurred while saving entity '{nameof(AddressModel)}': {ex.ToString()}");
+        }
       }
       else
       {
@@ -120,8 +135,15 @@ namespace WebApp.Controllers
       rentEstimate.AccountId = (Guid)TempData["Account.Id"];
       rentEstimate.AddressId = (Guid)TempData["Address.Id"];
 
-      this.dbContext.RentEstimates.Add(rentEstimate);
-      await this.dbContext.SaveChangesAsync();
+      try
+      { 
+        this.dbContext.RentEstimates.Add(rentEstimate);
+        await this.dbContext.SaveChangesAsync();
+      }
+      catch (Exception ex)
+      {
+        this.logger.LogError($"An error occurred while saving entity '{nameof(RentEstimateModel)}': {ex.ToString()}");
+      }
 
       TempData.Keep();
 
