@@ -39,7 +39,7 @@ namespace WebApp.Services.Email
       }
       catch (HttpRequestException ex)
       {
-        this.logger.LogError($"An error occured connecting to values API {ex.ToString()}");
+        this.logger.LogError($"An error occurred while calling Zillow API {ex.ToString()}");
       }
     }
 
