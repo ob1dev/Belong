@@ -135,5 +135,17 @@ namespace WebApp.Controllers
 
       return View();
     }
+
+    public IActionResult VerifyEmail(string email)
+    {
+      var result = this.dbContext.Accounts.Where(account => account.Email.Equals(email));
+
+      if (result.Any())
+      {
+        return Json($"Email is already taken.");
+      }
+
+      return Json(true);
+    }
   }
 }
