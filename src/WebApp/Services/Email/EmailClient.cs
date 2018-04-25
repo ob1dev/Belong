@@ -83,7 +83,7 @@ namespace WebApp.Services.Email
 
       message.Append($@"<p>Rent Estimate Info:</p>
                         <ul>
-                          <li><strong>Estimate rent:</strong> between ${rentEstimates.RentZestimateLow} and ${rentEstimates.RentZestimateLow}</li>
+                          <li><strong>Estimated rent:</strong> between ${rentEstimates.RentZestimateLow} and ${rentEstimates.RentZestimateLow}</li>
                           <li><strong>Expected rent:</strong> {rentEstimates.ExpectedRent}</li>
                         </ul> ");
 
