@@ -63,7 +63,7 @@ namespace WebApp.Services.Zillow
                                .Select(z => (string)z.Element("amount"))
                                .FirstOrDefault();
 
-      return (amount != null) ? new Zestimate(amount) : null;
+      return (!string.IsNullOrEmpty(amount)) ? new Zestimate(amount) : null;
     }
 
     private RentZestimate GetRentZestimate(XDocument searchResult)
