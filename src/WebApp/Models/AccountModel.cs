@@ -23,7 +23,7 @@ namespace WebApp.Models
     [Remote(action: "VerifyEmail", controller: "Account")]
     public string Email { get; set; }
 
-    [Required, MaxLength(10)]
+    [Required, MaxLength(14)]
     [RegularExpression(@"^\(\d{3}\) \d{3}-\d{4}$", ErrorMessage = "The Phone field must be formated as (123) 456-7890.")]
     [Display(Name = "Phone number")]
     public string Phone { get; set; }
