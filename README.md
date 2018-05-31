@@ -1,5 +1,7 @@
 # B4G - Coding Project
 
+[![Build Status](https://travis-ci.org/olegburov/B4G.svg?branch=master)](https://travis-ci.org/olegburov/B4G)
+
 Your mission, should you choose to accept it, is to build a sample homeowner lead generation web form and database.
 
 The instructions below encapsulate all the expectations regarding the project. Everything that isn’t explicitly specified is up to you to decide; use your best judgement.
