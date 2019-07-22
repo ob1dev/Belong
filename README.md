@@ -1,6 +1,6 @@
-# B4G - Coding Project
+# Belong - Coding Project
 
-[![Build Status](https://travis-ci.org/olegburov/B4G.svg?branch=master)](https://travis-ci.org/olegburov/B4G)
+[![Build Status](https://dev.azure.com/olegburov/Belong/_apis/build/status/olegburov.Belong?branchName=master)](https://dev.azure.com/olegburov/Belong/_build/latest?definitionId=11&branchName=master)
 
 Your mission, should you choose to accept it, is to build a sample homeowner lead generation web form and database.
 
