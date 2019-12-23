@@ -1,5 +1,9 @@
 # Belong - Coding Project
 
+<p align="left">
+  <a href="https://github.com/olegburov/Belong"><img alt="GitHub Actions status" src="https://github.com/olegburov/Belong/workflows/ASP.NET%20Core%20CI/badge.svg"></a>
+</p>
+
 [![Build Status](https://dev.azure.com/olegburov/Belong/_apis/build/status/olegburov.Belong?branchName=master)](https://dev.azure.com/olegburov/Belong/_build/latest?definitionId=11&branchName=master)
 
 Your mission, should you choose to accept it, is to build a sample homeowner lead generation web form and database.
